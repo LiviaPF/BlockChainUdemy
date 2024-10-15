@@ -1,5 +1,5 @@
 {
-  "name": "BlockChainUdemy",
+  "name": "blockchainudemy",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -15,5 +15,10 @@
   },
   "dependencies": {
     "crypto-js": "^4.2.0"
-  }
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
