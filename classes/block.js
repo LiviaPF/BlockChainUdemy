@@ -9,10 +9,10 @@ class Block {
     }
 
     toString() {
-        return `Block: "+
-            timestamp = "${this.timestamp}" +
-            lastHash = "${this.lastHash}" +
-            hash = "${this.hash}" + 
+        return `Block: "
+            timestamp = "${this.timestamp}"
+            lastHash = "${this.lastHash}"
+            hash = "${this.hash}"
             data = "${this.data}"`;
     }
 
