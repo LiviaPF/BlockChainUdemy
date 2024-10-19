@@ -43,14 +43,22 @@ class P2pServer {
         console.log('Socket connected');
 
         this.messageHandler(socket);
-        socket.send(JSON.stringify(this.blockchain.chain)); // cada socket novo deve receber a cadeia de blocos atual
+        this.sendChain(socket);
     }
 
     messageHandler(socket) {
         socket.on('message', message => {
             const data = JSON.parse(message);
-            console.log('data', data);
+            this.blockchain.replaceChain(data);
         });
+    }
+
+    sendChain(socket) {
+        socket.send(JSON.stringify(this.blockchain.chain)); // cada socket novo deve receber a cadeia de blocos atual
+    }
+
+    syncChains() {
+        this.sockets.forEach(socket => this.sendChain(socket));
     }
 }
 
