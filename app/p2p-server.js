@@ -39,7 +39,7 @@ class P2pServer {
     }
 
     connectSocket(socket) {
-        this.socket.push(socket);
+        this.sockets.push(socket);
         console.log('Socket connected');
     }
 }
