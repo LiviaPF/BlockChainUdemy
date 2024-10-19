@@ -1,14 +1,11 @@
 //  biblioteca 'ws' para permitir a comunicação através de WebSockets.
 const Websocket = require('ws');
-const {listen} = require("express/lib/application");
 
 //  define a porta P2P para se conectar a outros pares da cadeia usando a variável de ambiente P2P_PORT ou usando a porta padrão 5001
 const P2P_PORT = process.env.P2P_PORT || 5001;
 
 // define uma lista de pares para se conectar usando a variável de ambiente PEERS, dividindo-a por vírgulas, ou usando uma lista vazia
 const peers = process.env.PEERS ? process.env.PEERS.split(',') : [];
-
-
 
 class P2pServer {
     constructor(blockchain) {
