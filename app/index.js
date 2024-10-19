@@ -1,11 +1,11 @@
 const express = require('express');
 const Blockchain = require('../classes/blockchain');
-
-// roda a aplicação em uma porta determinada no terminal ou na 3001 se não for informada uma porta
-const HTTP_PORT = process.env.HTTP_PORT || 3001;
+const HTTP_PORT = process.env.HTTP_PORT || 3001; // porta para rodar a aplicação
+const P2pServer = require('./p2p-server');
 
 const app = express();
 const bc = new Blockchain();
+const p2pServer = new P2pServer(bc);
 
 app.use(express.json());
 app.get('/blocks', (req, res) => {
@@ -14,7 +14,9 @@ app.get('/blocks', (req, res) => {
 app.post('/mine', (req, res) => {
     const block = bc.addBlock(req.body.data);
     console.log(`New block added: ${block.toString()}`);
+    p2pServer.syncChains();
     res.redirect('/blocks');
 })
 
 app.listen(HTTP_PORT, () => console.log(`Listening on port ${HTTP_PORT}`));
+p2pServer.listen();
