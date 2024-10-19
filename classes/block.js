@@ -46,12 +46,12 @@ class Block {
         return SHA256(`${timestamp}${lastHash}${data}${nonce}${difficulty}`).toString();
     }
 
-    static blockHash (block, difficulty) {
+    static blockHash (block) {
         const {timestamp, lastHash, data, nonce, difficulty} = block;
         return Block.hash(timestamp, lastHash, data, nonce, difficulty);
     }
 
-    static adjustDifficulty(lastBlock, timestamp) {
+    static adjustDifficulty(lastBlock, currentTimestamp) {
         /*
         * ajusta a dificuldade baseado no tempo levado para minerar o bloco
         * se o tempo para gerar o bloco atual for menor que o tempo para gerar o bloco anterior somado ao mine rate,
