@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
+    "elliptic": "^6.5.7",
     "express": "^4.21.1",
     "ws": "^8.18.0"
   }
