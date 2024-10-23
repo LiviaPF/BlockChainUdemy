@@ -21,17 +21,17 @@ describe('Transaction', () => {
             .toEqual(amount);
     });
 
-    // describe('transacting with an amount that exceeds the balance', () => {
-    //     beforeEach(() => {
-    //         amount = 50000;
-    //         transaction = Transaction.newTransaction(wallet, recipient, amount);
-    //     });
-    //
-    //     it('does not create the transaction', () => {
-    //         expect(transaction).toEqual(undefined);
-    //     });
-    // });
-    //
+    describe('transacting with an amount that exceeds the balance', () => { // o saldo inicial da carteira é 500
+        beforeEach(() => {
+            amount = 50000;
+            transaction = Transaction.newTransaction(wallet, recipient, amount);
+        });
+
+        it('does not create the transaction', () => {
+            expect(transaction).toEqual(undefined);
+        });
+    });
+
     // describe('updating a transaction', () => {
     //     let nextAmount, nextRecipient;
     //
