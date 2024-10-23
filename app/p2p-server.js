@@ -7,6 +7,11 @@ const P2P_PORT = process.env.P2P_PORT || 5001;
 // define uma lista de pares para se conectar usando a variável de ambiente PEERS, dividindo-a por vírgulas, ou usando uma lista vazia
 const peers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 
+const MESSAGE_TYPES = {
+    chain: 'CHAIN',
+    transaction: 'TRANSACTION'
+}
+
 class P2pServer {
     constructor(blockchain, transactionPool) {
         this.blockchain = blockchain;
@@ -50,16 +55,24 @@ class P2pServer {
     messageHandler(socket) {
         socket.on('message', message => {
             const data = JSON.parse(message);
-            this.blockchain.replaceChain(data);
+
+            switch (data.type) {
+                case MESSAGE_TYPES.chain:
+                    this.blockchain.replaceChain(data);
+                    break;
+                case MESSAGE_TYPES.transaction:
+                    this.transactionPool.updateOrAddTransaction(data.transaction);
+                    break;
+            }
         });
     }
 
     sendChain(socket) {
-        socket.send(JSON.stringify(this.blockchain.chain)); // cada socket novo deve receber a cadeia de blocos atual
+        socket.send(JSON.stringify({type: MESSAGE_TYPES.chain, chain: this.blockchain.chain})); // cada socket novo deve receber a cadeia de blocos atual
     }
 
     sendTransaction(socket, transaction) {
-        socket.send(JSON.stringify(transaction));
+        socket.send(JSON.stringify({type: MESSAGE_TYPES.chain, transaction: transaction}));
     }
 
     syncChains() {
