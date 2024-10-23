@@ -13,6 +13,10 @@ class Wallet {
         publicKey: ${this.publicKey.toString()}
         balance  : ${this.balance}`;
     }
+
+    sign(dataHash) { // método para assinar uma transação, baseado no método sign da biblioteca elliptic
+        return this.keypar.sign(dataHash);
+    }
 }
 
 module.exports = Wallet;
