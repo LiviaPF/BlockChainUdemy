@@ -32,6 +32,12 @@ describe('Transaction', () => {
         });
     });
 
+    describe('inputs the balance of the wallet', () => {
+        it('inputs the balance of the wallet', () => {
+            expect(transaction.input.amount).toEqual(wallet.balance);
+        });
+    });
+
     // describe('updating a transaction', () => {
     //     let nextAmount, nextRecipient;
     //
