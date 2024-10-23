@@ -7,8 +7,8 @@ const TransactionPool = require('../wallet/transaction-pool');
 
 const app = express();
 const bc = new Blockchain();
-const p2pServer = new P2pServer(bc, tp);
 const tp= new TransactionPool();
+const p2pServer = new P2pServer(bc, tp);
 const wallet = new Wallet();
 
 
