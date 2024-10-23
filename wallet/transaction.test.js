@@ -37,4 +37,20 @@ describe('Transaction', () => {
             expect(transaction.input.amount).toEqual(wallet.balance);
         });
     });
+
+    describe('validates a valid transaction', () => {
+        it('validates a valid transaction', () => {
+            expect(Transaction.verifyTransaction(transaction)).toBe(true);
+        });
+    });
+
+    describe('invalidates a corrupt transaction', () => {
+        beforeEach(() => {
+            transaction.outputs[0].amount = 50000; // tenta atualizar o saldo do bloco inicial da transação
+        });
+
+        it('invalidates a corrupt transaction', () => {
+            expect(Transaction.verifyTransaction(transaction)).toBe(false);
+        });
+    });
 });
