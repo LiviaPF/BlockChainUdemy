@@ -8,6 +8,8 @@ Mining: Miners select transactions from the pool to include in the next block. T
 Inclusion in Block: Once a transaction is included in a block and the block is added to the blockchain, the transaction is removed from the pool.
 */
 
+const Transaction = require('./transaction');
+
 class TransactionPool {
     constructor() {
         this.transactions = [];
@@ -25,6 +27,26 @@ class TransactionPool {
 
     existingTransaction(address) {
         return this.transactions.find(t => t.input.address === address);
+    }
+
+    validTransactions() {
+        return this.transactions.filter(transaction => {
+            const outputTotal = transaction.outputs.reduce((total, output) => {
+                return total + output.amount;
+            }, 0);
+
+            if(transaction.input.amount !== outputTotal) {
+                console.log(`Invalid transaction from ${transaction.input.address}.`);
+                return;
+            }
+
+            if(!Transaction.verifyTransaction(transaction)) {
+                console.log(`Invalid signature from ${transaction.input.address}.`);
+                return;
+            }
+
+            return transaction;
+        });
     }
 }
 
