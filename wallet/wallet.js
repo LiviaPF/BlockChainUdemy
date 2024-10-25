@@ -54,11 +54,10 @@ class Wallet {
 
         // transações enviadas por essa carteira
         const walletInputTs = transactions.filter(transaction => transaction.input.address === this.publicKey);
-
         if (walletInputTs.length > 0) {
             // reduz o array de transações até ter o elemento com o maior timestamp, que será a última transação
             const recentInputTs = walletInputTs.reduce(
-                (prev, current) => prev.input.timestamp > current.input.timestamp ? prev : current, 0
+                (prev, current) => prev.input.timestamp > current.input.timestamp ? prev : current
             );
 
             // atualiza o saldo da carteira com o saldo restante após última transação enviada
@@ -67,7 +66,7 @@ class Wallet {
         }
 
         transactions.forEach(transaction => {
-            if (transactions.input.timestamp > startTime) {
+            if (transaction.input.timestamp > startTime) {
                 transaction.outputs.find(output => {
                     if (output.address === this.publicKey) { // verifica nas transações, se a carteira é o destinatário
                         balance += output.amount; // atualiza o saldo com o valor recebido na transação
