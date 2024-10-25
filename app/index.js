@@ -38,6 +38,10 @@ app.get('/transactions', (req, res) => {
 app.post('/transact', (req, res) => {
     const {recipient, amount} = req.body;
     const transaction = wallet.createTransaction(recipient, amount, bc, tp);
+    /*
+    o campo amount retornado está vindo como null
+    caso hajam futuros erros, verificar isso (não sei era para retornar dessa maneira ou não)
+    */
     p2pServer.broadcastTransaction(transaction);
     res.redirect('/transactions');
 });
