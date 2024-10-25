@@ -1,3 +1,6 @@
+const Transaction = require('../wallet/transaction');
+const Wallet = require('../wallet/wallet');
+
 /*
     The miner class is responsible for getting transactions from the transaction pool
     and creating new blocks and adding them to the blockchain.
@@ -14,6 +17,13 @@ class Miner {
 
     mine() {
         const validTransactions = this.transactionPool.validTransactions();
+        validTransactions.push(Transaction.rewardTransaction(this.wallet, Wallet.blockchainWallet()));
+        const block = this.blockchain.addBlock(validTransactions);
+        this.p2pServer.syncChains();
+        this.transactionPool.clear();
+        this.p2pServer.broadcastClearTransactions();
+
+        return block;
     }
 }
 
