@@ -1,4 +1,4 @@
-# Projeto feito com base no curso https://www.udemy.com/course/blockchain-com-nodejs-contrua-a-sua-blockchain e no livro Programming Bitcoin, de O'Reilly
+# Projeto feito com base no curso https://www.udemy.com/course/blockchain-com-nodejs-contrua-a-sua-blockchain
 O objetivo foi o desenvolver uma api moedas utilizando a tecnologia de blockchain. Durante o desenvolvimento pude aprimorar meus conhecimentos sobre os conceitos da Blockchain, como:
 - Armazenamento descentralizado
 - Arquitetura P2P para novas conexões
